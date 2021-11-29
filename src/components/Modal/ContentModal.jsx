@@ -7,10 +7,11 @@ import { makeStyles } from '@mui/styles';
 import "./ContentModal.css";
 import { Button } from "@mui/material";
 import YouTubeIcon from '@mui/icons-material/YouTube';
-
+import Badge from '@mui/material/Badge';
+import CloseIcon from '@mui/icons-material/Close';
 
 import axios from 'axios';
-import { img_500, unavailable,unavailableLandscape } from '../config/config'
+import { img_500, unavailable, unavailableLandscape } from '../config/config'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -78,18 +79,22 @@ const ContentModal = ({ children, media_type, id }) => {
         }}
       >
         <Fade in={open} >
-        {content && (
-            <div className={classes.paper}>
+         
+          {content && (
+            <div className={classes.paper} >
+            <Badge color="secondary" onClick={handleClose}  style={{position:"absolute" , right:75 , top:65,zIndex:100, backgroundColor:"#ccc",borderRadius:15}} >
+            <CloseIcon sx={{ fontSize: 30 }}  />
+          </Badge>
               <div className="ContentModal" >
                 <img
-                 className="ContentModal__portrait"
+                  className="ContentModal__portrait"
                   src={
                     content.poster_path
                       ? `${img_500}/${content.poster_path}`
                       : unavailable
                   }
                   alt={content.name || content.title}
-                 
+
                 />
                 <img
                   src={
@@ -100,7 +105,7 @@ const ContentModal = ({ children, media_type, id }) => {
                   alt={content.name || content.title}
                   className="ContentModal__landscape"
                 />
-                
+
                 <div className="ContentModal__about">
                   <span className="ContentModal__title">
                     {content.name || content.title} (
@@ -120,7 +125,7 @@ const ContentModal = ({ children, media_type, id }) => {
                   </span>
 
                   <div>
-                    <Carousel media_type={media_type}id={id}/>
+                    <Carousel media_type={media_type} id={id} />
                   </div>
 
                   <Button
